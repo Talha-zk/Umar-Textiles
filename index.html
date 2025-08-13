@@ -13,21 +13,81 @@
   <!-- hero section -->
   <section class="hero-bg">
     <div class="container position-relative">
-      <header class="header-container">
-        <div class="nav-links light-1">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-        </div>
-        <div class="logo">
-          <a href="index.html">
-          <img src="assets/img/image 1.png" alt="Umar Textiles Logo" />
+      <!-- Desktop Header -->
+  <header class="desktop-header-1 desktop-header">
+    <div class="header-container">
+      <div class="nav-links left-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+      </div>
+      
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="assets/img/image 1.png" alt="Umar Textiles Logo" class="logo">
         </a>
+      </div>
+      
+      <div class="nav-links right-links">
+        <a href="product.html">Products</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <div class="header-container">
+      <button class="hamburger-menu" id="mobileMenuToggle" aria-label="Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="assets/img/image 1.png" alt="Umar Textiles Logo" class="logo">
+        </a>
+      </div>
+      
+      <a href="tel:+1234567890" class="call-icon">
+        <img src="assets/img/phone.jpg" alt="Close Menu">
+      </a>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <div class="mobile-menu-container">
+        <div class="mobile-menu-header">
+          <a href="index.html" class="mobile-logo">
+            <img src="assets/img/image 1 (1).png" alt="Umar Textiles Logo">
+          </a>
+          <button class="close-menu" id="closeMenu" aria-label="Close menu">
+            <img src="assets/img/phone.jpg" alt="Close Menu" width="50 ">
+          </button>
         </div>
-        <div class="nav-links light-1">
-          <a href="product.html">Products</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </header>
+        
+        <nav class="mobile-nav">
+          <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          
+          <div class="mobile-contact-info">
+            <a href="tel:+1234567890" class="mobile-phone">
+              <i class="fas fa-phone"></i> +1 (234) 567-890
+            </a>
+            <div class="mobile-social-links">
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
     </div>
 
     <div class="hero-content">

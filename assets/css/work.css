@@ -1,6 +1,21 @@
-/* Global smooth scrolling and animations */
-* {
-  transition: all 0.3s ease;
+
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply fade-in animation to hero headings */
+.hero-heading {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
 }
 
 body{
@@ -299,7 +314,14 @@ body{
 .desktop-header {
   display: block;
   background: #FFF6E6;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  position: relative;
+  z-index: 1000;
+}
+.desktop-header-1 {
+  display: block;
+  background: none !important;
+
   position: relative;
   z-index: 1000;
 }
@@ -365,7 +387,6 @@ body{
 /* Mobile Header - Hidden by default */
 .mobile-header {
   display: none;
-  background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1000;
@@ -386,16 +407,16 @@ body{
   padding: 10px;
   border-radius: 50%;
   transition: all 0.3s ease;
-  background-color: #f5f5f5;
-  width: 40px;
-  height: 40px;
+
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .call-icon:hover {
-  background-color: #e0e0e0;
+  background-color: #f5f5f5;
   transform: scale(1.05);
 }
 
@@ -648,7 +669,7 @@ body{
     }
     
     .mobile-header .logo-container .logo {
-      height: 35px;
+      height: 50px;
       width: auto;
     }
     
@@ -1037,36 +1058,119 @@ body{
       padding: 50px 0;
     }
     
-    /* PREMIUM FLOATING IMAGES */
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 15px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-     
-      filter: brightness(0.95);
-    }
-    
-    img:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-      filter: brightness(1.05);
-    }
-    
-    .img-fluid {
-      max-width: 85%;
-      height: auto;
-      border-radius: 15px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      filter: brightness(0.95);
-    }
-    
-    .img-fluid:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-      filter: brightness(1.05);
-    }
+  /* GLOBAL IMAGE STYLES - Applies to all screen sizes */
+img:not(.logo):not(.hamburger-menu img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  filter: brightness(0.98);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img:not(.logo):not(.hamburger-menu img):hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.02);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.img-fluid {
+  max-width: 90%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  filter: brightness(0.98);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  margin: 0 auto;
+}
+
+.img-fluid:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.02);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Product page specific styles */
+.product-image, 
+.gallery-image {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.product-image:hover,
+.gallery-image:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.02);
+}
+
+/* Ensure images in product grid have consistent hover */
+.product-grid .col-md-4,
+.product-grid .col-lg-3 {
+  padding: 15px;
+}
+
+.product-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.product-grid .card {
+  border: none;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.product-grid .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.product-grid .card-img-top {
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+/* Add hover effect to all images in product sections */
+.products-section img,
+.product-category img,
+.featured-products img {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.products-section img:hover,
+.product-category img:hover,
+.featured-products img:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
   }
   
   /* PREMIUM SMALL MOBILE EXPERIENCE (480px and below) */
@@ -1129,11 +1233,27 @@ body{
       flex-direction: column;
       gap: 15px;
       padding: 15px;
-      margin: 0 15px;
-      background: rgba(0, 0, 0, 0.15);
+      margin: 0 0;
+      /* background-color: #fff6e6 !important; */
       backdrop-filter: blur(15px);
       border-radius: 12px;
     }
+
+    .header-container12 {
+      display: flex;
+      /* flex-direction: column; */
+      gap: 60px;
+      padding: 15px;
+      margin: 0 0;
+      background-color: #fff6e6 !important;
+      backdrop-filter: blur(15px);
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
+ 
+    /* poi */
     
     .nav-links {
       flex-direction: column;
@@ -1323,9 +1443,16 @@ body{
   .timeline-item .content img {
     margin-top: 10px;
     width: 80%;
-    border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
   }
+  
+  .timeline-item .content img:hover {
+    transform: scale(1.02);
+  }
+  
   
   /* Year Label */
   .timeline-item .year {
@@ -1457,7 +1584,15 @@ body{
     width: 100%;
     object-fit: cover;
     margin-top: 80px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
   }
+  
+  .img-box:hover {
+    transform: scale(1.02);
+  }
+  
   
   
   .button-end {
@@ -1481,6 +1616,27 @@ body{
     max-width: 120%;
     height: 100%;
     margin-top: 180px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+  
+  .img-6:hover {
+    transform: scale(1.02);
+  }
+  
+
+  .img-60 {
+    max-width: 120%;
+    height: 100%;
+
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+  
+  .img-60:hover {
+    transform: scale(1.02);
   }
   
   .img-fluid {
@@ -1825,7 +1981,17 @@ body{
     max-width: 100%;
     height: 100%;
     margin-left: 143px;
-  }
+      margin-left: 0 !important;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+    
+    .abt-img-6:hover {
+      transform: scale(1.02);
+    }
+
   
   /* PREMIUM ABOUT PAGE RESPONSIVE EXPERIENCE */
   @media (max-width: 1024px) {
@@ -2180,7 +2346,15 @@ body{
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
       }
+      
+      .info-img:hover {
+        transform: scale(1.02);
+      }
+      
   
   
       /* Make buttons match screenshot */
@@ -2225,7 +2399,7 @@ body{
         background-color: #ffcc80; /* matches the light orange */
         padding: 25px;
         width: 1253px;
-           margin-left:250px;
+           margin-left:150px;
         
       }
       .recycling-text {

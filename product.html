@@ -23,7 +23,7 @@
 
   <!-- Centered Content -->
   <div class="hero-content-cnt pt-5 mt-5">
-    <h1 class="text-uppercase mb-0  fw-bolder pt-5 mt-5">crafting perfection <br>in every seam</h1>
+    <h1 class="text-uppercase mb-0 fw-bolder pt-5 mt-5 hero-heading">crafting perfection <br>in every seam</h1>
 
   </div>
 
@@ -37,10 +37,10 @@
         <!-- Filter & Sort Row -->
         <div class="row mb-4">
             <div class="col-md-6">
-                <select class="form-select w-auto">
-                    <option selected>All</option>
-                    <option>Aprons</option>
-                    <option>Towels</option>
+                <select class="form-select w-auto" id="categoryFilter">
+                    <option value="all" selected>All</option>
+                    <option value="apron">Aprons</option>
+                    <option value="towel">Towels</option>
                 </select>
             </div>
             <div class="col-md-6 text-md-end mt-3 mt-md-0">
@@ -55,7 +55,7 @@
         <div class="row">
 
             <!-- Example Product -->
-            <div class="col-6 col-md-3 product-card">
+            <div class="col-6 col-md-3 product-card" data-category="apron">
                 <img src="assets/img/Rectangle 47.png" alt="Adjustable Aprons">
                 <div class="product-title">Adjustable Aprons</div>
                 <div class="product-sub">Color</div>
@@ -68,8 +68,8 @@
             </div>
 
             <!-- Repeat for more products -->
-             <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 48 (1).png" alt="Adjustable Aprons">
+             <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 48 (1).png" alt="Bath Towels">
                 <div class="product-title">Bath Towels</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -81,8 +81,8 @@
             </div>
 
             <!-- Duplicate and change product details as needed -->
-      <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 49.png" alt="Adjustable Aprons">
+      <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 49.png" alt="Hospital Blanket">
                 <div class="product-title">hospital blanket</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -93,8 +93,8 @@
                 </div>
             </div>
 
-              <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 50.png" alt="Adjustable Aprons">
+              <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 50.png" alt="Salon Towel">
                 <div class="product-title">salon towel</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -106,8 +106,8 @@
             </div>
 
 
-               <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 55.png" alt="Adjustable Aprons">
+               <div class="col-6 col-md-3 product-card" data-category="apron">
+                <img src="assets/img/Rectangle 55.png" alt="Adult Bib">
                 <div class="product-title">adult bib</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -119,8 +119,8 @@
             </div>
 
 
-               <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 56.png" alt="Adjustable Aprons">
+               <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 56.png" alt="Bamboo Bath Towels">
                 <div class="product-title">bamboo bath towels</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -132,8 +132,8 @@
             </div>
 
 
-               <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 57.png" alt="Adjustable Aprons">
+               <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 57.png" alt="Bar Mops">
                 <div class="product-title">Bar mops</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -145,8 +145,8 @@
             </div>
 
 
-               <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 58.png" alt="Adjustable Aprons">
+               <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 58.png" alt="Bath Mat">
                 <div class="product-title">bath mat</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -158,8 +158,8 @@
             </div>
 
 
-     <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 59.png" alt="Adjustable Aprons">
+     <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 59.png" alt="Bath Sheet">
                 <div class="product-title">bath sheet</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -171,8 +171,8 @@
             </div>
 
 
-                 <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 60.png" alt="Adjustable Aprons">
+                 <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 60.png" alt="Cabana Towel">
                 <div class="product-title">cabana towel</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -185,8 +185,8 @@
 
 
 
-                 <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 61.png" alt="Adjustable Aprons">
+                 <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 61.png" alt="Cleaning Rags">
                 <div class="product-title">cleaning rags</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -199,8 +199,8 @@
 
 
 
-                 <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 62.png" alt="Adjustable Aprons">
+                 <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 62.png" alt="Kitchen Towel">
                 <div class="product-title">kitchen towel</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -214,8 +214,8 @@
 
 
 
-                <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 63.png" alt="Adjustable Aprons">
+                <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 63.png" alt="Shop Towels">
                 <div class="product-title">shop towels</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -229,8 +229,8 @@
 
 
 
-                <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 64.png" alt="Adjustable Aprons">
+                <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 64.png" alt="Dish Cloth">
                 <div class="product-title">dish cloth</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -243,8 +243,8 @@
 
 
 
-                <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 65.png" alt="Adjustable Aprons">
+                <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 65.png" alt="Drop Cloth">
                 <div class="product-title">drop cloth</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -257,8 +257,8 @@
 
 
 
-                <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 66.png" alt="Adjustable Aprons">
+                <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 66.png" alt="Flour Sack">
                 <div class="product-title">flour sack</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -270,8 +270,8 @@
             </div>
 
 
-             <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 67.png" alt="Adjustable Aprons">
+             <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 67.png" alt="Microfiber Towel">
                 <div class="product-title">microfibre towel</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -283,8 +283,8 @@
             </div>
 
 
-             <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 68.png" alt="Adjustable Aprons">
+             <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 68.png" alt="Napkins">
                 <div class="product-title">napkins</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -296,8 +296,8 @@
             </div>
 
 
-             <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 69.png" alt="Adjustable Aprons">
+             <div class="col-6 col-md-3 product-card" data-category="apron">
+                <img src="assets/img/Rectangle 69.png" alt="Waist Apron">
                 <div class="product-title">waist apron</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -309,8 +309,8 @@
             </div>
 
 
-             <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 70.png" alt="Adjustable Aprons">
+             <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 70.png" alt="Wash Cloth">
                 <div class="product-title">wash cloth</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -322,8 +322,8 @@
             </div>
 
 
-                <div class="col-6 col-md-3 product-card">
-                <img src="assets/img/Rectangle 71.png" alt="Adjustable Aprons">
+                <div class="col-6 col-md-3 product-card" data-category="towel">
+                <img src="assets/img/Rectangle 71.png" alt="Pillowcase">
                 <div class="product-title">pillowcase</div>
                 <div class="product-sub">Color</div>
                 <div class="color-boxes">
@@ -384,5 +384,30 @@
 
  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
       <script src="assets/js/scripts.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const categoryFilter = document.getElementById('categoryFilter');
+          const productCards = document.querySelectorAll('.product-card');
+          
+          // Function to filter products
+          function filterProducts() {
+            const selectedCategory = categoryFilter.value;
+            
+            productCards.forEach(card => {
+              if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          }
+          
+          // Add event listener to the filter dropdown
+          categoryFilter.addEventListener('change', filterProducts);
+          
+          // Initialize filter on page load (in case 'all' isn't the default)
+          filterProducts();
+        });
+      </script>
   </body>
 </html>
