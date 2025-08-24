@@ -188,7 +188,7 @@ $current_email = $config['recipient_email'];
                     </p>
                     <div class="d-flex justify-content-center gap-2">
                         <a href="admin_products.php" class="btn btn-primary">Manage Products</a>
-                        <a href="index.html" class="btn btn-outline-primary">Back to Website</a>
+                        <a href="home.html" class="btn btn-outline-primary">Back to Website</a>
                     </div>
                 </div>
             <?php endif; ?>

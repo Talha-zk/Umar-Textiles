@@ -19,19 +19,19 @@
   <header class="desktop-header-1 desktop-header">
     <div class="header-container" >
       <div class="nav-links left-links helvetica-bold">
-        <a href="index.html" class="helvetica-bold" style="color: white !important;">Home</a>
-        <a href="about.html" class="helvetica-bold"style="color: white !important;">About</a>
+        <a href="home" class="helvetica-bold" style="color: white !important;">Home</a>
+        <a href="about" class="helvetica-bold"style="color: white !important;">About</a>
       </div>
       
       <div class="logo-container">
-        <a href="index.html">
+        <a href="home">
           <img src="assets/img/image 1.png" alt="Umar Textiles Logo" class="logo">
         </a>
       </div>
       
       <div class="nav-links right-links helvetica-bold">
-        <a href="product.html" class="helvetica-bold" style="color: white !important;">Products</a>
-        <a href="contact.html" class="helvetica-bold" style="color: white !important;">Contact</a>
+        <a href="product" class="helvetica-bold" style="color: white !important;">Products</a>
+        <a href="contact" class="helvetica-bold" style="color: white !important;">Contact</a>
       </div>
     </div>
   </header>
@@ -46,7 +46,7 @@
       </button>
       
       <div class="logo-container">
-        <a href="index.html">
+        <a href="home">
           <img src="assets/img/image 1.png" alt="Umar Textiles Logo" class="logo">
         </a>
       </div>
@@ -60,7 +60,7 @@
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
       <div class="mobile-menu-container">
         <div class="mobile-menu-header">
-          <a href="index.html" class="mobile-logo">
+          <a href="home" class="mobile-logo">
             <img src="assets/img/image 1 (1).png" alt="Umar Textiles Logo">
           </a>
           <button class="close-menu" id="closeMenu" aria-label="Close menu">
@@ -70,10 +70,10 @@
         
         <nav class="mobile-nav">
           <ul class="mobile-nav-links helvetica-bold">
-            <li><a href="index.html" class="helvetica-bold">Home</a></li>
-            <li><a href="about.html" class="helvetica-bold">About</a></li>
-            <li><a href="product.html" class="helvetica-bold">Products</a></li>
-            <li><a href="contact.html" class="helvetica-bold">Contact</a></li>
+            <li><a href="home" class="helvetica-bold">Home</a></li>
+            <li><a href="about" class="helvetica-bold">About</a></li>
+            <li><a href="product" class="helvetica-bold">Products</a></li>
+            <li><a href="contact" class="helvetica-bold">Contact</a></li>
           </ul>
           
           <div class="mobile-contact-info">
@@ -94,7 +94,7 @@
 
     <div class="hero-content ">
   <h1 class="helvetica-black">A LEGACY OF<br> EXCELLENCE IN EVERY THREAD</h1>
-      <a href="contact.html">
+      <a href="contact">
   <button class="btn-quote mt-4 helvetica-bold">Get a Quote</button>
       </a>
     </div>
@@ -140,8 +140,8 @@
         <div class="col-md-3 col-12 mb-4">
           <div class="image-card">
             <img src="assets/img/09.jpeg" alt="Timeline Image" class="img-box" />
-            <h4 class="card-text1 fs-4 text-start helvetica-bold">Spinning</h4>
-            <a href="spinning.html" class="card-text1 fs-4 text-start helvetica-normal">Explore
+            <h4 class="card-text fs-4 text-start helvetica-bold">Spinning</h4>
+            <a href="spinning" class="card-text  fs-4 text-start helvetica-bold">Explore
               <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right" />
             </a>
           </div>
@@ -151,7 +151,7 @@
           <div class="image-card">
             <img src="assets/img/dye.jpg" alt="Timeline Image" class="img-box" />
             <h4 class="card-text fs-4 text-start helvetica-bold">Dyeing</h4>
-            <a href="dyeing.html" class="card-text fs-4 text-start helvetica-normal">Explore  <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right2" /></a>
+            <a href="dyeing" class="card-text fs-4 text-start helvetica-normal">Explore  <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right2" /></a>
           </div>
         </div>
 
@@ -159,7 +159,7 @@
           <div class="image-card">
             <img src="assets/img/Rectangle 5.png" alt="Timeline Image" class="img-box" />
             <h4 class="card-text fs-4 text-start helvetica-bold">Stitching</h4>
-            <a href="stiching.html" class="card-text fs-4 text-start helvetica-normal">Explore <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right2" /></a>
+            <a href="stiching" class="card-text fs-4 text-start helvetica-normal">Explore <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right2" /></a>
           </div>
         </div>
 
@@ -167,7 +167,7 @@
           <div class="image-card">
             <img src="assets/img/checkers.png" alt="Timeline Image" class="img-box" />
             <h4 class="card-text1 fs-4 text-start helvetica-bold">Weaving</h4>
-            <a href="weaving.html" class="card-text1 fs-4 text-start helvetica-normal">Explore  <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right" /></a>
+            <a href="weaving" class="card-text1 fs-4 text-start helvetica-normal">Explore  <img src="assets/img/right-arrow.png" alt="Arrow Right" class="arrow-right" /></a>
           </div>
         </div>
       </div>
@@ -202,7 +202,7 @@
             <li>Tailored customization to meet your exact needs</li>
             <li>Trusted by industries requiring reliable textile solutions</li>
           </ul>
-          <a href="contact.html">
+          <a href="contact">
             <button class="btn-quote mt-4 helvetica-bold">Get a Quote</button>
           </a>
         </div>
