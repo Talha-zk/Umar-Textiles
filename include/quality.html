@@ -1,6 +1,24 @@
   <!-- Quality-hero -->
   <!-- Favicon: Add this to the <head> of the including file if not already present: -->
   <!-- <link rel="icon" type="image/png" href="assets/img/favicon_tiny.ico" /> -->
+  
+  <!-- Tablet-specific styles for star-bg -->
+  <style>
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .star-bg {
+        position: absolute;
+        left: 25%;
+        top: 8%;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        width: 450px;
+        z-index: 1;
+        pointer-events: none;
+      }
+    }
+  </style>
+  
   <section class="hero-bg2">
     <!-- Background Star Image -->
     <img src="assets/img/asd.png" alt="Star Background" class="star-bg img-fluid">
