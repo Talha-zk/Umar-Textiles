@@ -9,11 +9,14 @@
       </div>
   <h3 class="helvetica-black">LET’S START YOUR CUSTOM ORDER TODAY</h3>
   <p class="helvetica-normal">Have questions or need a custom solution? Our team is ready to help you with pricing, product details, and tailored options.</p>
-      <form>
-        <input type="text" placeholder="Name" required>
-        <input type="email" placeholder="Email" required>
-  <button type="submit" class="helvetica-bold">ENTER</button>
+      <form id="footerForm">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit" class="helvetica-bold" id="footerSubmitBtn">ENTER</button>
       </form>
+      
+      <!-- Success/Error Messages -->
+      <div id="footerMessage" class="mt-2" style="display: none; color: white; font-size: 14px;"></div>
     </div>
 
     <!-- Middle Column -->

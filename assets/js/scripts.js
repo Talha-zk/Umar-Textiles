@@ -2,6 +2,9 @@ $(document).ready(function() {
   // Initialize mobile menu
   initMobileMenu();
   
+  // Initialize form handling
+  initFormHandling();
+  
   // Load includes if any
   var includes = $('[data-include]');
   if (includes.length > 0) {
@@ -9,6 +12,7 @@ $(document).ready(function() {
       var file = 'include/' + $(this).data('include') + '.html';
       $(this).load(file, function() {
         initMobileMenu();
+        initFormHandling(); // Re-initialize forms after includes load
       });
     });
   }
@@ -87,6 +91,80 @@ $(document).ready(function() {
           $('body').css('overflow', '');
         }
       }, 250);
+    });
+  }
+  
+  // Form handling function
+  function initFormHandling() {
+    // Contact form handling
+    $('#contactForm').off('submit').on('submit', function(e) {
+      e.preventDefault();
+      handleFormSubmission(this, 'contact');
+    });
+    
+    // Footer form handling
+    $('#footerForm').off('submit').on('submit', function(e) {
+      e.preventDefault();
+      handleFormSubmission(this, 'footer');
+    });
+  }
+  
+  // Generic form submission handler
+  function handleFormSubmission(form, formType) {
+    const $form = $(form);
+    const $submitBtn = $form.find('button[type="submit"]');
+    const $messageDiv = formType === 'footer' ? $('#footerMessage') : $('#formMessage');
+    
+    // Get form data
+    const formData = {};
+    $form.find('input, select, textarea').each(function() {
+      const $field = $(this);
+      const name = $field.attr('name');
+      if (name) {
+        formData[name] = $field.val();
+      }
+    });
+    
+    // Add form type
+    formData.form_type = formType;
+    
+    // Show loading state
+    const originalText = $submitBtn.text();
+    $submitBtn.text('Sending...').prop('disabled', true);
+    $messageDiv.hide();
+    
+    // Send form data
+    fetch('process_form.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Success
+        $messageDiv.removeClass('alert-danger').addClass('alert-success').html(data.message).show();
+        $form[0].reset(); // Reset form
+      } else {
+        // Error
+        $messageDiv.removeClass('alert-success').addClass('alert-danger').html(data.message).show();
+      }
+    })
+    .catch(error => {
+      // Network or other error
+      $messageDiv.removeClass('alert-success').addClass('alert-danger').html('An error occurred. Please try again.').show();
+      console.error('Error:', error);
+    })
+    .finally(() => {
+      // Reset button state
+      $submitBtn.text(originalText).prop('disabled', false);
+      
+      // Auto-hide message after 5 seconds
+      setTimeout(() => {
+        $messageDiv.fadeOut();
+      }, 5000);
     });
   }
 });

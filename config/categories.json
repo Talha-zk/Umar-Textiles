@@ -1,0 +1,66 @@
+[
+    {
+        "id": "1",
+        "key": "apron",
+        "name": "Apron",
+        "description": "Kitchen and cooking aprons, bibs, and protective wear",
+        "display_name": "Aprons & Bibs",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "2",
+        "key": "towel",
+        "name": "Towel",
+        "description": "Bath towels, hand towels, and general towels",
+        "display_name": "Towels",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "3",
+        "key": "bedding",
+        "name": "Bedding",
+        "description": "Bed sheets, pillowcases, and bedding accessories",
+        "display_name": "Bedding",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "4",
+        "key": "kitchen",
+        "name": "Kitchen",
+        "description": "Kitchen textiles and accessories",
+        "display_name": "Kitchen",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "5",
+        "key": "bathroom",
+        "name": "Bathroom",
+        "description": "Bathroom textiles and accessories",
+        "display_name": "Bathroom",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "6",
+        "key": "napkins",
+        "name": "Napkins",
+        "description": "Table napkins and dining accessories",
+        "display_name": "Napkins",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "7",
+        "key": "cleaning",
+        "name": "Cleaning",
+        "description": "Cleaning cloths, rags, and cleaning accessories",
+        "display_name": "Cleaning",
+        "created_at": "2024-01-01"
+    },
+    {
+        "id": "8",
+        "key": "hospitality",
+        "name": "Hospitality",
+        "description": "Hospitality and commercial textiles",
+        "display_name": "Hospitality",
+        "created_at": "2024-01-01"
+    }
+]
