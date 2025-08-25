@@ -69,31 +69,52 @@ function handleImageUpload($file) {
     
     // Create directory if it doesn't exist
     if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
+        if (!mkdir($uploadDir, 0755, true)) {
+            error_log("Failed to create upload directory: " . $uploadDir);
+            return false;
+        }
+    }
+    
+    // Check if directory is writable
+    if (!is_writable($uploadDir)) {
+        error_log("Upload directory is not writable: " . $uploadDir);
+        return false;
     }
     
     // Check if file was uploaded
     if ($file['error'] !== UPLOAD_ERR_OK) {
+        error_log("File upload error: " . $file['error']);
         return false;
     }
     
     // Validate file type
     $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     if (!in_array($file['type'], $allowedTypes)) {
+        error_log("Invalid file type: " . $file['type']);
         return false;
     }
     
-    // Generate unique filename
-    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $filename = 'product_' . uniqid() . '.' . $extension;
+    // Validate file size (5MB limit)
+    if ($file['size'] > 5 * 1024 * 1024) {
+        error_log("File too large: " . $file['size']);
+        return false;
+    }
+    
+    // Generate unique filename with original name preserved
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $originalName = pathinfo($file['name'], PATHINFO_FILENAME);
+    $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $originalName);
+    $filename = $safeName . '_' . uniqid() . '.' . $extension;
     $filepath = $uploadDir . $filename;
     
     // Move uploaded file
     if (move_uploaded_file($file['tmp_name'], $filepath)) {
+        error_log("File uploaded successfully: " . $filepath);
         return $filepath;
+    } else {
+        error_log("Failed to move uploaded file to: " . $filepath);
+        return false;
     }
-    
-    return false;
 }
 
 // Handle product operations
@@ -110,16 +131,24 @@ if (isset($_SESSION['admin_logged_in'])) {
         ];
         
         // Handle image upload
+        $imageUploadSuccess = true;
         if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+            error_log("Processing image upload for product: " . $newProduct['name']);
             $uploadedImage = handleImageUpload($_FILES['product_image']);
             if ($uploadedImage) {
                 $newProduct['image'] = $uploadedImage;
+                error_log("Image uploaded successfully: " . $uploadedImage);
             } else {
-                $error_message = "Failed to upload image. Please check file type and size.";
+                $imageUploadSuccess = false;
+                $_SESSION['error_message'] = "Failed to upload image. Please check file type and size.";
+                error_log("Image upload failed for product: " . $newProduct['name']);
             }
+        } else {
+            // If no image uploaded, use default image
+            $newProduct['image'] = 'assets/img/cloth.png';
         }
         
-        if (!empty($newProduct['name']) && !empty($newProduct['category']) && !empty($newProduct['colors'])) {
+        if (!empty($newProduct['name']) && !empty($newProduct['category']) && !empty($newProduct['colors']) && $imageUploadSuccess) {
             $products[] = $newProduct;
             if (saveProducts($products)) {
                 $_SESSION['success_message'] = "Product added successfully!";
@@ -130,6 +159,8 @@ if (isset($_SESSION['admin_logged_in'])) {
                 header('Location: admin_products.php');
                 exit;
             }
+        } elseif (!$imageUploadSuccess) {
+            // Don't redirect if image upload failed, let the error message show
         } else {
             $_SESSION['error_message'] = "Please fill in all required fields.";
             header('Location: admin_products.php');
@@ -178,7 +209,9 @@ if (isset($_SESSION['admin_logged_in'])) {
                 $products[$key]['colors'] = array_filter(array_map('trim', explode(',', $_POST['product_color'] ?? '')));
                 
                 // Handle image upload for update
+                $imageUploadSuccess = true;
                 if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+                    error_log("Processing image upload for product update: " . $product['name']);
                     $uploadedImage = handleImageUpload($_FILES['product_image']);
                     if ($uploadedImage) {
                         // Delete old image if it's not the default
@@ -186,18 +219,26 @@ if (isset($_SESSION['admin_logged_in'])) {
                             unlink($product['image']);
                         }
                         $products[$key]['image'] = $uploadedImage;
+                        error_log("Image updated successfully: " . $uploadedImage);
                     } else {
-                        $error_message = "Failed to upload image. Please check file type and size.";
+                        $imageUploadSuccess = false;
+                        $_SESSION['error_message'] = "Failed to upload image. Please check file type and size.";
+                        error_log("Image upload failed for product update: " . $product['name']);
                     }
+                } else {
+                    // Keep existing image if no new image uploaded
+                    $products[$key]['image'] = $product['image'];
                 }
                 break;
             }
         }
         
-        if (saveProducts($products)) {
+        if ($imageUploadSuccess && saveProducts($products)) {
             $_SESSION['success_message'] = "Product updated successfully!";
             header('Location: admin_products.php');
             exit;
+        } elseif (!$imageUploadSuccess) {
+            // Don't redirect if image upload failed, let the error message show
         } else {
             $_SESSION['error_message'] = "Failed to update product. Please check file permissions.";
             header('Location: admin_products.php');
@@ -600,7 +641,7 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                                                     <p class="mb-2"><strong>Colors:</strong> <?php echo htmlspecialchars(is_array($product['colors']) ? implode(', ', $product['colors']) : $product['color']); ?></p>
                                                     <div class="btn-group btn-group-sm">
                                                         <button type="button" class="btn btn-outline-primary" 
-                                                                onclick="editProduct('<?php echo $product['id']; ?>', '<?php echo htmlspecialchars($product['name']); ?>', '<?php echo htmlspecialchars($product['category']); ?>', <?php echo json_encode(is_array($product['colors']) ? $product['colors'] : [$product['color']]); ?>, '<?php echo htmlspecialchars($product['image']); ?>')">
+                                                                onclick="editProduct('<?php echo $product['id']; ?>', '<?php echo htmlspecialchars(addslashes($product['name'])); ?>', '<?php echo htmlspecialchars($product['category']); ?>', <?php echo json_encode($product['colors']); ?>, '<?php echo htmlspecialchars($product['image']); ?>')">
                                                             Edit
                                                         </button>
                                                         <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this product?')">
@@ -966,12 +1007,37 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
         function handleFileSelect(fileInput, preview, previewImg) {
             const file = fileInput.files[0];
             if (file) {
+                console.log('File selected for upload:', file.name, 'Size:', file.size, 'Type:', file.type);
+                
+                // Validate file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please select a valid image file (JPEG, PNG, or GIF)');
+                    fileInput.value = '';
+                    return;
+                }
+                
+                // Validate file size (5MB limit)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size must be less than 5MB');
+                    fileInput.value = '';
+                    return;
+                }
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     previewImg.src = e.target.result;
                     preview.style.display = 'block';
+                    console.log('File preview loaded successfully');
+                };
+                reader.onerror = function() {
+                    console.error('Error reading file for preview');
+                    alert('Error reading file. Please try again.');
+                    fileInput.value = '';
                 };
                 reader.readAsDataURL(file);
+            } else {
+                console.log('No file selected');
             }
         }
         
@@ -982,38 +1048,78 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
         });
         
         function editProduct(id, name, category, colors, image) {
-            document.getElementById('edit_product_id').value = id;
-            document.getElementById('edit_product_name').value = name;
-            document.getElementById('edit_product_category').value = category;
-            
-            // Handle colors - if it's an array, join with commas, otherwise use as is
-            const colorValue = Array.isArray(colors) ? colors.join(', ') : colors;
-            document.getElementById('edit_product_color').value = colorValue;
-            
-            // Show current image
-            const currentImagePreview = document.getElementById('currentImagePreview');
-            currentImagePreview.src = image;
-            currentImagePreview.onerror = function() {
-                this.src = 'assets/img/cloth.png';
-            };
-            
-            // Select the appropriate color swatches for multiple colors
-            const editColorSwatches = document.querySelectorAll('#editColorSwatches .color-swatch');
-            editColorSwatches.forEach(s => s.classList.remove('selected'));
-            
-            // Handle multiple colors
-            const colorArray = Array.isArray(colors) ? colors : [colors];
-            colorArray.forEach(color => {
-                const matchingSwatch = Array.from(editColorSwatches).find(swatch => 
-                    swatch.getAttribute('data-color').toLowerCase() === color.toLowerCase()
-                );
+            try {
+                console.log('editProduct called with:', { id, name, category, colors, image });
                 
-                if (matchingSwatch) {
-                    matchingSwatch.classList.add('selected');
+                // Set form values
+                const editId = document.getElementById('edit_product_id');
+                const editName = document.getElementById('edit_product_name');
+                const editCategory = document.getElementById('edit_product_category');
+                const editColor = document.getElementById('edit_product_color');
+                
+                if (!editId || !editName || !editCategory || !editColor) {
+                    console.error('Required form elements not found');
+                    alert('Error: Form elements not found. Please refresh the page.');
+                    return;
                 }
-            });
-            
-            new bootstrap.Modal(document.getElementById('editProductModal')).show();
+                
+                editId.value = id;
+                editName.value = name;
+                editCategory.value = category;
+                
+                // Handle colors - ensure it's always an array
+                let colorArray = [];
+                if (Array.isArray(colors)) {
+                    colorArray = colors;
+                } else if (typeof colors === 'string') {
+                    colorArray = colors.split(',').map(c => c.trim()).filter(c => c);
+                } else if (colors) {
+                    colorArray = [colors.toString()];
+                }
+                
+                const colorValue = colorArray.join(', ');
+                editColor.value = colorValue;
+                
+                // Show current image
+                const currentImagePreview = document.getElementById('currentImagePreview');
+                if (currentImagePreview) {
+                    currentImagePreview.src = image || 'assets/img/cloth.png';
+                    currentImagePreview.onerror = function() {
+                        this.src = 'assets/img/cloth.png';
+                    };
+                }
+                
+                // Select the appropriate color swatches for multiple colors
+                const editColorSwatches = document.querySelectorAll('#editColorSwatches .color-swatch');
+                editColorSwatches.forEach(s => s.classList.remove('selected'));
+                
+                // Handle multiple colors
+                colorArray.forEach(color => {
+                    const matchingSwatch = Array.from(editColorSwatches).find(swatch => 
+                        swatch.getAttribute('data-color').toLowerCase() === color.toLowerCase()
+                    );
+                    
+                    if (matchingSwatch) {
+                        matchingSwatch.classList.add('selected');
+                    }
+                });
+                
+                // Show the modal
+                const modalElement = document.getElementById('editProductModal');
+                if (!modalElement) {
+                    console.error('Edit modal not found');
+                    alert('Error: Edit modal not found. Please refresh the page.');
+                    return;
+                }
+                
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+                console.log('Edit modal opened successfully');
+                
+            } catch (error) {
+                console.error('Error in editProduct function:', error);
+                alert('Error opening edit form. Please try again. Error: ' + error.message);
+            }
         }
         
         function editCategory(id, key, name, displayName, description) {
@@ -1088,9 +1194,11 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                 
                 colorSwatches.appendChild(newSwatch);
                 colorName.value = '';
+                colorPicker.value = '#ffffff';
             }
         }
         
+        // Add custom color functionality for edit form
         function addEditCustomColor() {
             const colorPicker = document.getElementById('editCustomColorPicker');
             const colorName = document.getElementById('editCustomColorName');
@@ -1112,14 +1220,43 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                 
                 colorSwatches.appendChild(newSwatch);
                 colorName.value = '';
+                colorPicker.value = '#ffffff';
             }
         }
         
         // Initialize color swatches when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin Products page loaded successfully');
             setupFileUpload('uploadArea', 'product_image', 'imagePreview', 'previewImg');
             setupFileUpload('editUploadArea', 'edit_product_image', 'editImagePreview', 'editPreviewImg');
             setupColorSwatches();
+            
+            // Debug: Check if Bootstrap is loaded
+            if (typeof bootstrap !== 'undefined') {
+                console.log('Bootstrap is loaded');
+            } else {
+                console.error('Bootstrap is not loaded');
+            }
+            
+            // Debug: Check if edit modal exists
+            const editModal = document.getElementById('editProductModal');
+            if (editModal) {
+                console.log('Edit modal found');
+            } else {
+                console.error('Edit modal not found');
+            }
+            
+            // Debug: Check if upload areas exist
+            const uploadArea = document.getElementById('uploadArea');
+            const editUploadArea = document.getElementById('editUploadArea');
+            if (uploadArea) console.log('Upload area found');
+            if (editUploadArea) console.log('Edit upload area found');
+            
+            // Debug: Check if file inputs exist
+            const productImageInput = document.getElementById('product_image');
+            const editProductImageInput = document.getElementById('edit_product_image');
+            if (productImageInput) console.log('Product image input found');
+            if (editProductImageInput) console.log('Edit product image input found');
         });
     </script>
 </body>
